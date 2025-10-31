@@ -276,3 +276,103 @@ xdg-open picorv32a.placement.def.png
 ```
 ![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/6a99f4af4366326d6d13c53980f368d50c861922/images/picorv32a.placement.def.png)
 
+Design library cell using Magic Layout and ngspice characterization (18/03/2024 - 21/03/2024)
+
+### Theory
+
+### Implementation
+
+* Section 3 tasks:-
+1. Clone custom inverter standard cell design from github repository: [Standard cell design and characterization using OpenLANE flow](https://github.com/nickson-jose/vsdstdcelldesign).
+2. Load the custom inverter layout in magic and explore.
+3. Spice extraction of inverter in magic.
+4. Editing the spice model file for analysis through simulation.
+5. Post-layout ngspice simulations.
+6. Find problem in the DRC section of the old magic tech file for the skywater process and fix them.
+
+* Section 3 - Tasks 1 to 5 files, reports and logs can be found in the following folder:
+
+[Section 3 - Tasks 1 to 5 \(vsdstdcelldesign\)](https://github.com/fayizferosh/soc-design-and-planning-nasscom-vsd/tree/main/Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign)
+
+* Section 3 - Task 6 files, reports and logs can be found in the following folder:
+
+[Section 3 - Task 6 \(drc_tests\)](https://github.com/fayizferosh/soc-design-and-planning-nasscom-vsd/tree/main/drc_tests)
+
+#### 1. Clone custom inverter standard cell design from github repository
+
+```bash
+# Change directory to openlane
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+# Clone the repository with custom inverter design
+git clone https://github.com/nickson-jose/vsdstdcelldesign
+
+# Change into repository directory
+cd vsdstdcelldesign
+
+# Copy magic tech file to the repo directory for easy access
+cp /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech .
+
+# Check contents whether everything is present
+ls
+
+# Command to open custom inverter layout in magic
+magic -T sky130A.tech sky130_inv.mag &
+```
+
+Screenshot of commands run
+
+![Screenshot from 2024-03-19 00-22-27](https://github.com/fayizferosh/soc-design-and-planning-nasscom-vsd/assets/63997454/8f304929-a190-4aa1-9cc4-b8fefa1909e8)
+
+#### 2. Load the custom inverter layout in magic and explore.
+
+Screenshot of custom inverter layout in magic
+
+![Screenshot from 2024-03-19 00-22-44](https://github.com/fayizferosh/soc-design-and-planning-nasscom-vsd/assets/63997454/6eae887c-ebc6-4771-8bcc-e4edaf9947d9)
+
+NMOS and PMOS identified
+
+![Screenshot from 2024-03-19 00-28-03](https://github.com/fayizferosh/soc-design-and-planning-nasscom-vsd/assets/63997454/eada5c8b-154c-4eea-819c-d49f89495acb)
+![Screenshot from 2024-03-19 00-29-14](https://github.com/fayizferosh/soc-design-and-planning-nasscom-vsd/assets/63997454/dec7e465-8fd0-45d5-bac6-10de1acb8c76)
+
+Output Y connectivity to PMOS and NMOS drain verified
+
+![Screenshot from 2024-03-19 00-31-17](https://github.com/fayizferosh/soc-design-and-planning-nasscom-vsd/assets/63997454/e16fb883-907e-437a-b8d8-1b9d1b2e67a6)
+
+PMOS source connectivity to VDD (here VPWR) verified
+
+![Screenshot from 2024-03-19 00-34-11](https://github.com/fayizferosh/soc-design-and-planning-nasscom-vsd/assets/63997454/173efda1-d5d1-49d9-a040-771092b1e55b)
+
+NMOS source connectivity to VSS (here VGND) verified
+
+![Screenshot from 2024-03-19 00-36-09](https://github.com/fayizferosh/soc-design-and-planning-nasscom-vsd/assets/63997454/107a8e0b-43de-4b5d-90fe-516ea83673b1)
+
+Deleting necessary layout part to see DRC error
+
+![Screenshot from 2024-03-19 01-10-28](https://github.com/fayizferosh/soc-design-and-planning-nasscom-vsd/assets/63997454/861912e4-eef9-4226-b563-db7f49ca6632)
+
+#### 3. Spice extraction of inverter in magic.
+
+Commands for spice extraction of the custom inverter layout to be used in tkcon window of magic
+
+```tcl
+# Check current directory
+pwd
+
+# Extraction command to extract to .ext format
+extract all
+
+# Before converting ext to spice this command enable the parasitic extraction also
+ext2spice cthresh 0 rthresh 0
+
+# Converting to ext to spice
+ext2spice
+```
+
+Screenshot of tkcon window after running above commands
+
+![Screenshot from 2024-03-19 01-24-17](https://github.com/fayizferosh/soc-design-and-planning-nasscom-vsd/assets/63997454/831b0be9-3c02-4bbb-800e-6f1c3dc1ba1a)
+
+Screenshot of created spice file
+
+![Screenshot from 2024-03-19 01-27-07](https://github.com/fayizferosh/soc-design-and-planning-nasscom-vsd/assets/63997454/2c645f55-c4d5-4007-8b9c-73ba8a8e5bcb)
