@@ -185,6 +185,7 @@ Aspect Ratio =  Height
 ```shell
 run_floorplan
 ```
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/6a99f4af4366326d6d13c53980f368d50c861922/images/Screenshot%20from%202025-10-31%2019-21-45.png)
 ![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/0316f1e22bbe73f0fcb6fd1566d4c72af63873b1/images/Screenshot%20from%202025-10-31%2000-44-15.png)
 ![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/0316f1e22bbe73f0fcb6fd1566d4c72af63873b1/images/Screenshot%20from%202025-10-31%2000-46-23.png)
 
@@ -273,8 +274,7 @@ To open this PNG file from the terminal (inside the appropriate directory), use:
 ```bash
 xdg-open picorv32a.placement.def.png
 ```
-
-![Alt Text](Images/plc2.jpg)
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/6a99f4af4366326d6d13c53980f368d50c861922/images/picorv32a.placement.def.png)
 
 #### ❗Error: common_pdn.tcl not found?
 
