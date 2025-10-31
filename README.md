@@ -180,7 +180,7 @@ Aspect Ratio =  Height
 > config.tcl — Design Configuration File
 
 
-#### Step 8: Floorplaning using OpenLANE & view in Magic
+#### Step 5: Floorplaning using OpenLANE & view in Magic
 
 ```shell
 run_floorplan
@@ -215,7 +215,7 @@ Replace the contents of:
 /openLANE_flow/scripts/openroad/or_basic_mp.tcl
 ```
 
-#### Step 9: Viewing the Floorplan DEF in Magic
+#### Step 6: Viewing the Floorplan DEF in Magic
 
 To visually inspect the floorplan (DEF) file in the Magic layout editor, use the following command in your terminal from the floorplan results directory:
 
@@ -225,6 +225,7 @@ magic -T Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sk
 
 ![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/0316f1e22bbe73f0fcb6fd1566d4c72af63873b1/images/Screenshot%20from%202025-10-31%2000-46-28.png)
 ![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/0316f1e22bbe73f0fcb6fd1566d4c72af63873b1/images/Screenshot%20from%202025-10-31%2001-08-32.png)
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/ddce85b06304ecf2a5ce66e1ac338c87f99aa263/images/Screenshot%20from%202025-10-31%2001-16-23.png)
 
 - Press s and v to fit the layout properly on the screen.
 
@@ -236,37 +237,11 @@ magic -T Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sk
 
 - The tkcon window will show the details of the selected object.
 
-![Alt Text](Images/miss9.jpg)
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/ddce85b06304ecf2a5ce66e1ac338c87f99aa263/images/Screenshot%20from%202025-10-31%2001-19-12.png)
 
-#### Step 10: Calculate the die area in microns from the values in floorplan def
 
-![Alt Text](Images/def.jpg)
 
-According to floorplan def
-
-```math
-1000\ Unit\ Distance = 1\ Micron
-```
-```math
-Die\ width\ in\ unit\ distance = 662810 - 0 = 662810
-```
-```math
-Die\ height\ in\ unit\ distance = 673530 - 0 = 673530
-```
-```math
-Distance\ in\ microns = \frac{Value\ in\ Unit\ Distance}{1000}
-```
-```math
-Die\ width\ in\ microns = \frac{662810}{1000} = 662.810\ Microns
-```
-```math
-Die\ height\ in\ microns = \frac{673530}{1000} = 673.530\ Microns
-```
-```math
-Area\ of\ die\ in\ microns = 662.81 * 673.53 = 446422.4193\ Square\ Microns
-```
-
-#### Step 11: Run Placement using OpenLANE
+#### Step 7: Run Placement using OpenLANE
 
 After successful floorplanning, the next major step in the digital backend flow is cell placement. This stage involves arranging the standard cells within the defined core area while minimizing congestion, wire length, and optimizing performance metrics like timing and power.
 
