@@ -150,9 +150,9 @@ Flop Ratio = DFFs / Total Cells = 1613 / 14596 ≈ 0.11050972
 
 DFF % = (DFFs / Total Cells) × 100 = (1613 / 14296) × 100 ≈ 11.050972%
 ![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/43f24eaf0abd539ec71242c0b43fa55d21ebfd96/images/Screenshot%20from%202025-10-30%2022-13-57.png)
-### `Floorplanning and library cells`
+###  Good floorplan vs bad floorplan and introduction to library cells
 
-Utilization Factor and Aspect Ratio: In IC floor planning, utilization factor and aspect ratio are key parameters. The utilization factor is the ratio of the area occupied by the netlist to the total core area. While a perfect utilization of 1 (100%) is ideal, practical designs target a factor of 0.5 to 0.6 to allow space for buffer zones, routing channels, and future adjustments. The aspect ratio, defined as height divided by width, indicates the chip’s shape; an aspect ratio of 1 denotes a square, while other values result in a rectangular layout. The aspect ratio is chosen based on functional, packaging, and manufacturing needs.
+
 
 ```shell
 Utilisation Factor =  Area occupied by netlist
@@ -173,167 +173,21 @@ Aspect Ratio =  Height
 
 **Pin Placement:** Pin placement (I/O planning) is crucial for functionality and reliability. Strategic pin assignment minimizes signal degradation, preserves data integrity, and helps manage heat dissipation. Proper positioning of power and ground pins supports thermal management and enhances signal strength, contributing to overall system stability and manufacturability.
 
-**Files of importance in increasing priority order:**
----------------
-
-**1. floorplan.tcl - System default environment variables**
-
-**2. config.tcl**
-
-**3. sky130A_sky130_fd_sc_hd_config.tcl**
-
-> Floorplan Defaults (floorplan.tcl)
-
-The following configuration sets the default parameters used during the floorplanning stage of the ASIC design in the OpenLane flow. These environment variables control core sizing, utilization, power grid, IO placement, and margins.
-
-<details> <summary><strong>floorplan.tcl</strong></summary>
-
-```shell
-# Copyright 2020 Efabless Corporation
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# Floorplan defaults
-set ::env(FP_IO_VMETAL) 3
-set ::env(FP_IO_HMETAL) 4
-
-set ::env(FP_SIZING) relative
-set ::env(FP_CORE_UTIL) 50
-set ::env(FP_CORE_MARGIN) 0
-set ::env(FP_ASPECT_RATIO) 1
-
-set ::env(FP_PDN_VOFFSET) 16.32
-set ::env(FP_PDN_VPITCH) 153.6
-set ::env(FP_PDN_HOFFSET) 16.65
-set ::env(FP_PDN_HPITCH) 153.18
-
-set ::env(FP_PDN_AUTO_ADJUST) 1
-
-set ::env(FP_PDN_CORE_RING) 0
-set ::env(FP_PDN_ENABLE_RAILS) 1
-
-set ::env(FP_PDN_CHECK_NODES) 1
-
-set ::env(FP_IO_MODE) 1; # 0 matching mode - 1 random equidistant mode
-set ::env(FP_IO_HLENGTH) 4
-set ::env(FP_IO_VLENGTH) 4
-set ::env(FP_IO_VEXTEND) -1
-set ::env(FP_IO_HEXTEND) -1
-set ::env(FP_IO_VTHICKNESS_MULT) 2
-set ::env(FP_IO_HTHICKNESS_MULT) 2
-
-set ::env(BOTTOM_MARGIN_MULT) 4
-set ::env(TOP_MARGIN_MULT) 4
-set ::env(LEFT_MARGIN_MULT) 12
-set ::env(RIGHT_MARGIN_MULT) 12
-
-set ::env(FP_HORIZONTAL_HALO) 10
-set ::env(FP_VERTICAL_HALO) $::env(FP_HORIZONTAL_HALO)
-
-set ::env(DESIGN_IS_CORE) 1
-```
-</details>
 
 **Explanation of Key Parameters**
 
-- **Core Utilization (`FP_CORE_UTIL`)**:  
-  Controls how densely the core area is filled with standard cells. A 50% utilization provides routing space and reduces congestion.
-
-- **Aspect Ratio (`FP_ASPECT_RATIO`)**:  
-  Defines the shape of the core. A ratio of 1 means a square core.
-
-- **Power Distribution Network (PDN)**:  
-  Offsets and pitches define spacing and placement of power/ground rings and rails to ensure stable power delivery.
-
-- **IO Placement Mode (`FP_IO_MODE`)**:  
-  Mode 1 evenly spaces IO pins randomly; mode 0 aligns them to match a template.
-
-- **Margins (`BOTTOM_MARGIN_MULT`, etc.)**:  
-  Define spacing around the core for IO pads, routing, and design rules. Larger left/right margins accommodate more IO pins or pads.
-
-- **Halo (`FP_HORIZONTAL_HALO`)**:  
-  Additional guardband space around the core to isolate it from block boundaries and ensure timing and routing integrity.
-
-- **`DESIGN_IS_CORE`**:  
-  Signals the flow to treat this design as a core block for appropriate floorplanning behavior.
-
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/0316f1e22bbe73f0fcb6fd1566d4c72af63873b1/images/Screenshot%20from%202025-10-30%2023-55-31.png)
 > config.tcl — Design Configuration File
 
-The config.tcl file is the primary user-editable configuration file in an OpenLane ASIC design flow. It defines design-specific parameters that control various aspects of the flow, including design name, clock settings, technology libraries, floorplan overrides, power planning, and tool options.
-
-This file allows users to customize the flow behavior without modifying the underlying scripts
-
-<details> <summary><strong>config.tcl</strong></summary>
-
-```shell
-# Design
-set ::env(DESIGN_NAME) "picorv32a"
-
-set ::env(VERILOG_FILES) "./designs/picorv32a/src/picorv32a.v"
-set ::env(SDC_FILE) "./designs/picorv32a/src/picorv32a.sdc"
-
-set ::env(CLOCK_PERIOD) "5.000"
-set ::env(CLOCK_PORT) "clk"
-
-
-set ::env(CLOCK_NET) $::env(CLOCK_PORT)
-
-set ::env(FP_CORE_UTIL) 65
-set ::env(FP_IO_VMETAL) 4
-set ::env(FP_IO_HMETAL) 3
-
-set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
-set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
-set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
-set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
-
-set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
-
-set filename $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
-if { [file exists $filename] == 1} {
-	source $filename
-}
-```
-</details>
-
-> sky130A_sky130_fd_sc_hd_config.tcl — Standard Cell Library Specific Configuration
-
-This configuration file contains parameters tailored for the SkyWater 130nm technology node using the sky130_fd_sc_hd standard cell library. These parameters fine-tune synthesis and floorplanning steps, ensuring better alignment with the technology’s characteristics and design goals.
-
-<details> <summary><strong>sky130A_sky130_fd_sc_hd_config.tcl</strong></summary>
-
-```shell
-# SCL Configs
-set ::env(GLB_RT_ADJUSTMENT) 0.1
-set ::env(SYNTH_CAP_LOAD) 30
-set ::env(SYNTH_MAX_FANOUT) 6
-set ::env(CLOCK_PERIOD) "24.73"
-
-# Floorplan utilization and density
-set ::env(FP_CORE_UTIL) 35
-set ::env(PL_TARGET_DENSITY) [expr {($::env(FP_CORE_UTIL) + 5) / 100.0}]
-
-set ::env(RUN_BASIC_MP) 0
-```
-</details>
 
 #### Step 8: Floorplaning using OpenLANE & view in Magic
 
 ```shell
 run_floorplan
 ```
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/0316f1e22bbe73f0fcb6fd1566d4c72af63873b1/images/Screenshot%20from%202025-10-31%2000-44-15.png)
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/0316f1e22bbe73f0fcb6fd1566d4c72af63873b1/images/Screenshot%20from%202025-10-31%2000-46-23.png)
 
-![Alt Text](Images/miss5.jpg)
 
 ⚠️ **Potential Errors During Floorplanning**
 
@@ -366,10 +220,11 @@ Replace the contents of:
 To visually inspect the floorplan (DEF) file in the Magic layout editor, use the following command in your terminal from the floorplan results directory:
 
 ```shell
-magic -T ~/soc-design-and-planning-nasscom-vsd/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
+magic -T Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
 ```
 
-![Alt Text](Images/miss6.jpg)
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/0316f1e22bbe73f0fcb6fd1566d4c72af63873b1/images/Screenshot%20from%202025-10-31%2000-46-28.png)
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/0316f1e22bbe73f0fcb6fd1566d4c72af63873b1/images/Screenshot%20from%202025-10-31%2001-08-32.png)
 
 - Press s and v to fit the layout properly on the screen.
 
