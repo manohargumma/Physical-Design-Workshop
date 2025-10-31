@@ -276,7 +276,7 @@ xdg-open picorv32a.placement.def.png
 ```
 ![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/6a99f4af4366326d6d13c53980f368d50c861922/images/picorv32a.placement.def.png)
 
-# Design library cell using Magic Layout and ngspice characterization (18/03/2024 - 21/03/2024)
+# Design library cell using Magic Layout 
 
 
 #### 1. Clone custom inverter standard cell design from github repository
