@@ -249,18 +249,18 @@ To initiate placement:
 ```shell
 run_placement
 ```
-![Alt Text](Images/plc.jpg)
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/ea7869831e0f395a507fc7b91e3b585e9c59ecda/images/Screenshot%20from%202025-10-31%2009-12-50.png)
 
 
-#### Step 12: Viewing the Placement DEF in Magic
 
+#### Step 8: Viewing the Placement DEF in Magic
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/ea7869831e0f395a507fc7b91e3b585e9c59ecda/images/Screenshot%20from%202025-10-31%2009-27-43.png)
 ```shell
-magic -T ~/soc-design-and-planning-nasscom-vsd/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+magic -T  /home/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
 ```
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/ea7869831e0f395a507fc7b91e3b585e9c59ecda/images/Screenshot%20from%202025-10-31%2009-28-07.png)
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/ea7869831e0f395a507fc7b91e3b585e9c59ecda/images/Screenshot%20from%202025-10-31%2009-29-24.png)
 
-![Alt Text](Images/plc1.jpg)
-
-![Alt Text](Images/miss10.jpg)
 
 ### Viewing the Placement PNG Output
 
