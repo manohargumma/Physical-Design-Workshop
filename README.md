@@ -1,7 +1,15 @@
 # Physical-Design-Workshop
 
 
-
+![Workshop](https://img.shields.io/badge/Workshop-Physical--Design-blueviolet)
+![Domain-VLSI](https://img.shields.io/badge/Domain-VLSI-green)
+![Tool-OpenROAD](https://img.shields.io/badge/Tool-OpenROAD-blue)
+![Tool-OpenLane](https://img.shields.io/badge/Tool-OpenLane-darkgreen)
+![PDK-Sky130](https://img.shields.io/badge/PDK-Sky130-orange)
+![Platform-RISC_V_SoC](https://img.shields.io/badge/Platform-RISC--V_SoC-green)
+![Container-Docker](https://img.shields.io/badge/Container-Docker-blue)
+![OS-Ubuntu](https://img.shields.io/badge/OS-Ubuntu-orange)
+![Community-OpenSource](https://img.shields.io/badge/Community-Open--Source-success)
 
 
 
