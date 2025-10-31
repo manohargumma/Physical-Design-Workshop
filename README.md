@@ -135,20 +135,21 @@ run_synthesis
 
 
 ### `Calculation of Flop Ratio and DFF %`
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/43f24eaf0abd539ec71242c0b43fa55d21ebfd96/images/Screenshot%20from%202025-10-30%2022-10-02.png)
 
 To evaluate the sequential logic content in the synthesized design:
 
-- **Total Cells** = 15134  
+- **Total Cells** = 14596
 - **DFF Cells** = 1613 (from `sky130_fd_sc_hd__dfxtp_2`)
 
 #### ➤ Flop Ratio:
 
-Flop Ratio = DFFs / Total Cells = 1613 / 15134 ≈ 0.1065
+Flop Ratio = DFFs / Total Cells = 1613 / 14596 ≈ 0.11050972
 
 #### ➤ DFF Percentage:
 
-DFF % = (DFFs / Total Cells) × 100 = (1613 / 15134) × 100 ≈ 10.65%
-
+DFF % = (DFFs / Total Cells) × 100 = (1613 / 14296) × 100 ≈ 11.050972%
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/43f24eaf0abd539ec71242c0b43fa55d21ebfd96/images/Screenshot%20from%202025-10-30%2022-13-57.png)
 ### `Floorplanning and library cells`
 
 Utilization Factor and Aspect Ratio: In IC floor planning, utilization factor and aspect ratio are key parameters. The utilization factor is the ratio of the area occupied by the netlist to the total core area. While a perfect utilization of 1 (100%) is ideal, practical designs target a factor of 0.5 to 0.6 to allow space for buffer zones, routing channels, and future adjustments. The aspect ratio, defined as height divided by width, indicates the chip’s shape; an aspect ratio of 1 denotes a square, while other values result in a rectangular layout. The aspect ratio is chosen based on functional, packaging, and manufacturing needs.
