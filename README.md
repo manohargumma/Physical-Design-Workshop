@@ -114,16 +114,22 @@ package require openlane 0.9
 # Prep the design (creates necessary directory structure, config files, and copies RTL files)
 prep -design picorv32a
 ```
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/609dcc0612bff50a90630a300227f188c61607da/images/Screenshot%20from%202025-10-30%2019-28-30.png)
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/609dcc0612bff50a90630a300227f188c61607da/images/Screenshot%20from%202025-10-30%2019-28-38.png)
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/609dcc0612bff50a90630a300227f188c61607da/images/Screenshot%20from%202025-10-30%2019-28-43.png)
 
 ```shell
 # Run synthesis step
 run_synthesis
 ```
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/609dcc0612bff50a90630a300227f188c61607da/images/Screenshot%20from%202025-10-30%2019-30-43.png)
 
 
 #### Step 4: View the Yosys Synthesis Report
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/609dcc0612bff50a90630a300227f188c61607da/images/Screenshot%20from%202025-10-30%2021-07-38.png)
 
-
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/609dcc0612bff50a90630a300227f188c61607da/images/Screenshot%20from%202025-10-30%2021-07-45.png)
+![image](https://github.com/manohargumma/Physical-Design-Workshop/blob/609dcc0612bff50a90630a300227f188c61607da/images/Screenshot%20from%202025-10-30%2021-07-53.png)
 
 
 
