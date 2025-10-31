@@ -1,9 +1,6 @@
 # Physical-Design-Workshop
 
 
-# VSD Hardware Design Program
-
-##  Advanced Physical Design using OpenLane for `picorv32a` design
 
 
 
